@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "upkit/dist/style.min.css";
+import { Provider } from "react-redux";
+import { listen } from "./app/listener";
+import store from "./app/store";
+import Home from "./pages/Home";
+import { useEffect } from "react";
+import Register from "./pages/Register";
+import RegisterSuccess from "./pages/RegisterSuccess";
+import Login from "./pages/Login";
 
 function App() {
+  useEffect(() => {
+    listen();
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register/berhasil" element={<RegisterSuccess />} />
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </BrowserRouter>
+      </Provider>
     </div>
   );
 }
