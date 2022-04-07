@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { LayoutOne } from "upkit";
@@ -10,7 +10,7 @@ export default function Logout() {
   let navigate = useNavigate();
   let dispatch = useDispatch();
 
-  useEffect(() => {
+  React.useEffect(() => {
     logoutUser()
       .then(() => {
         dispatch(userLogout());

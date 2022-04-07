@@ -10,13 +10,13 @@ import StatusLabel from "../../components/StatusLabel";
 import axios from "axios";
 
 export default function Invoice() {
+  let params = useParams();
   const [invoice, setInvoice] = React.useState([]);
   const [error, setError] = React.useState(null);
   const [status, setStatus] = React.useState(null);
   const [initiatingPayment, setInitiating] = React.useState(false);
   const [requestError, setRequestError] = React.useState(false);
 
-  let params = useParams();
   useEffect(() => {
     getInvoiceByOrderId(params?.order_id)
       .then(({ data }) => {
@@ -45,7 +45,7 @@ export default function Invoice() {
     window.snap.pay(data.token);
   };
 
-  if (error) {
+  if (requestError) {
     return (
       <LayoutOne>
         <TopBar />

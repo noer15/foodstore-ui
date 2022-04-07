@@ -16,8 +16,6 @@ import Invoice from "./pages/Invoice";
 import UserAccount from "./pages/UserAccount";
 import UserOrders from "./pages/UserOrders";
 import Logout from "./pages/Logout";
-import GuardRoute from "./components/GuardRoute";
-import GuestOnlyRoute from "./components/GuestOnlyRoute";
 
 function App() {
   useEffect(() => {
