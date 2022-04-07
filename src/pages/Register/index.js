@@ -23,12 +23,7 @@ const statuslist = {
 
 export default function Register() {
   let navigate = useNavigate();
-  let {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setError,
-  } = useForm();
+  const { register, handleSubmit, errors, setError } = useForm();
   const [status, setStatus] = useState(statuslist.idle);
   const onSubmit = async (formData) => {
     let { password, password_confirmation } = formData;
@@ -63,74 +58,51 @@ export default function Register() {
             <StoreLogo />
           </div>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <FormControl
-              errorMessage={
-                errors.full_name && rules.full_name?.required?.message
-              }
-            >
+            <FormControl errorMessage={errors.full_name?.message}>
               <InputText
                 name="full_name"
                 placeholder="Nama Lengkap"
                 fitContainer
-                {...register("full_name", {
-                  required: rules.full_name?.required,
-                  maxLength: rules.full_name?.maxLength,
-                })}
+                ref={register(rules.full_name)}
               />
             </FormControl>
-            {/* (2) Input Email */}
-            <FormControl
-              errorMessage={errors.email && rules.email?.required?.message}
-            >
+
+            <FormControl errorMessage={errors.email?.message}>
               <InputText
                 name="email"
                 placeholder="Email"
                 fitContainer
-                {...register("email", {
-                  required: rules.email?.required,
-                  maxLength: rules.email?.maxLength,
-                })}
+                ref={register(rules.email)}
               />
             </FormControl>
-            {/* (3) Input Password */}
-            <FormControl
-              errorMessage={
-                errors.password && rules.password?.required?.message
-              }
-            >
+
+            <FormControl errorMessage={errors.password?.message}>
               <InputPassword
                 name="password"
                 placeholder="Password"
                 fitContainer
-                {...register("password", {
-                  required: rules.password?.required,
-                  maxLength: rules.password?.maxLength,
-                })}
+                ref={register(rules.password)}
               />
             </FormControl>
 
-            {/* (4) Input Konfirmasi Password */}
-            <FormControl
-              errorMessage={
-                errors.password_confirmation &&
-                rules.password_confirmation?.required?.message
-              }
-            >
+            <FormControl errorMessage={errors.password_confirmation?.message}>
               <InputPassword
                 name="password_confirmation"
                 placeholder="Konfirmasi Password"
                 fitContainer
-                {...register("password_confirmation", {
-                  required: rules.password_confirmation?.required,
-                })}
+                ref={register(rules.password_confirmation)}
               />
             </FormControl>
+
             <Button
               size="large"
               fitContainer
               disabled={status === statuslist.process}
             >
-              {status === statuslist.process ? "Processing..." : "Register"}
+              {" "}
+              {status === statuslist.process
+                ? "Sedang memproses"
+                : "Mendaftar"}{" "}
             </Button>
           </form>
           <div className="text-center mt-2">

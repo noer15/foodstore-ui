@@ -26,12 +26,13 @@ const statuslist = {
 export default function Login() {
   let navigate = useNavigate();
   const dispatch = useDispatch();
-  let {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setError,
-  } = useForm();
+  //   let {
+  //     register,
+  //     handleSubmit,
+  //     formState: { errors },
+  //     setError,
+  //   } = useForm();
+  const { register, handleSubmit, errors, setError } = useForm();
   const [status, setStatus] = useState(statuslist.idle);
 
   const onSubmit = async ({ email, password }) => {
@@ -58,36 +59,26 @@ export default function Login() {
             <StoreLogo />
           </div>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <FormControl
-              errorMessage={errors.email && rules.email?.required?.message}
-            >
+            <FormControl errorMessage={errors.email?.message}>
               <InputText
+                placeholder="email"
+                fitContainer
                 name="email"
-                placeholder="Email"
-                fitContainer
-                {...register("email", {
-                  required: rules.email?.required,
-                  maxLength: rules.email?.maxLength,
-                })}
+                ref={register(rules.email)}
               />
             </FormControl>
-            <FormControl
-              errorMessage={
-                errors.password && rules.password?.required?.message
-              }
-            >
+
+            <FormControl errorMessage={errors.password?.message}>
               <InputPassword
+                placeholder="password"
                 name="password"
-                placeholder="Password"
                 fitContainer
-                {...register("password", {
-                  required: rules.password?.required,
-                  maxLength: rules.password?.maxLength,
-                })}
+                ref={register(rules.password)}
               />
             </FormControl>
-            <Button fitContainer disabled={status === "process"}>
-              Masuk
+
+            <Button fitContainer size="large" disabled={status === "process"}>
+              Login
             </Button>
           </form>
           <div className="text-center mt-2">

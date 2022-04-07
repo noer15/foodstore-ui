@@ -17,7 +17,7 @@ async function logoutUser() {
     ? JSON.parse(localStorage.getItem("auth"))
     : {};
   return await axios
-    .get(`${config.api_host}/api/v1/auth/logout`, null, {
+    .post(`${config.api_host}/api/v1/auth/logout`, null, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
